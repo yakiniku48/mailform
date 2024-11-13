@@ -253,7 +253,7 @@ EOM;
 							$value = implode( $this->multiple_values_separator, $value );
 						}
 						if ( ! $value ) $value = $this->empty_value;
-						$value = sanitize_text_field( $value );
+						$value = sanitize_textarea_field( $value );
 						$admin_body = str_replace( '{' . $key . '}', $value, $admin_body );
 						$reply_body = str_replace( '{' . $key . '}', $value, $reply_body );
 					}
