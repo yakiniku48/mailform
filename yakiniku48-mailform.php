@@ -149,6 +149,7 @@ EOM;
 
 		public $grecaptha_sitekey = '';
 		public $grecaptha_secretkey = '';
+		public $grecaptha_score = false;
 
 		public function __construct()
 		{
@@ -217,6 +218,11 @@ EOM;
 				$response = json_decode( $verify_response, true );
 				if ( $response['success'] ) {
 					// success
+					if ( ! empty( $response['score'] ) ) {
+						$this->grecaptha_score = $response['score'];
+					} else {
+						$this->validation_errors['grecaptha'] = [ 'Failed to retrieve reCAPTCHA score.' ];
+					}
 				} else {
 					$this->validation_errors['grecaptha'] = $response['error-codes'];
 				}
