@@ -3,7 +3,7 @@
 Plugin Name: YAKINIKU48 MailForm
 Plugin URI:  https://github.com/yakiniku48/mailform
 Description: YAKINIKU48 MailForm のコアファイルです。
-Version:     0.1.0
+Version:     0.2.0
 Author:      Hideyuki Motoo
 Author URI:  https://nearly.jp/
 Update URI:  yakiniku48-mailform
@@ -210,6 +210,11 @@ EOM;
 				}
 			}
 
+			// WP Nonce
+			if ( ! filter_input( INPUT_POST, 'yakiniku48_nonce' ) || ! wp_verify_nonce( $_POST['yakiniku48_nonce'], 'yakiniku48_form_send' ) ) {
+				$this->validation_errors['yakiniku48_nonce'] = [ 'Failed to verify your nonce.' ];
+			}
+
 			// Google reCAPTCHA
 			if ( $this->grecaptha_sitekey && $this->grecaptha_secretkey ) {
 				$captcha_response = filter_input( INPUT_POST, 'g-recaptcha-response' );
@@ -348,6 +353,13 @@ EOM;
 				}
 			}
 			return $output;
+		}
+
+		public function form_nonce() {
+			ob_start();
+			wp_nonce_field( 'yakiniku48_form_send', 'yakiniku48_nonce' );
+			echo $this->error( 'yakiniku48_nonce' );
+			return ob_get_clean();
 		}
 
 		public function form_input( $key ) {
