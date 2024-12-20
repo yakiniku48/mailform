@@ -508,7 +508,7 @@ add_action( 'template_redirect', function () {
 
 add_filter( 'update_plugins_yakiniku48-mailform', function ( $update, $plugin_data ) {
 	$response = wp_remote_get( 'https://api.github.com/repos/yakiniku48/mailform/releases/latest' );
-	if( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+	if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 		return $update;
 	}
 

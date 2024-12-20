@@ -35,6 +35,7 @@ $mailform = new MailForm();
 $mailform->do_form();
 ?>
 <form method="post" id="form-contact">
+	<?php echo $mailform->form_nonce(); ?>
 	<p>
 		<label for="your-name">お名前<br>
 			<?php echo $mailform->form_input( 'your-name' ); ?>
@@ -65,6 +66,7 @@ $mailform->do_confirm();
 ?>
 <form method="post">
 	<?php echo $mailform->hidden_inputs(); ?>
+	<?php echo $mailform->form_nonce(); ?>
 	<p>お名前: <?php echo $mailform->get( 'your-name' ); ?></p>
 	<p>メールアドレス: <?php echo $mailform->get( 'your-email' ); ?></p>
 	<p>お問い合わせ内容:<br>
