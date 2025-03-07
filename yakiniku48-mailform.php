@@ -92,8 +92,8 @@ if ( ! class_exists( 'YAKINIKU48_MailForm' ) ) {
 		];
 
 		public $mail_from_name = 'WordPress';
-		public $mail_from_email = 'wordpress@example.com';
-		public $admin_to = 'wordpress'; // @ 以降はhome_urlから自動的に取得されます
+		public $mail_from_email = 'wordpress'; // @ 以降はhome_urlから自動的に取得されます
+		public $admin_to = 'wordpress@example.com';
 		public $admin_subject = 'ウェブからお問い合わせがありました';
 		public $admin_body = <<<EOM
 {your-name}様からお問い合わせがありました
@@ -153,7 +153,7 @@ EOM;
 
 		public function __construct()
 		{
-			$sitename = wp_parse_url( network_home_url(), PHP_URL_HOST );
+			$sitename = str_replace( 'www.', '', wp_parse_url( network_home_url(), PHP_URL_HOST ) );
 			$this->mail_from_email .= '@' . $sitename;
 
 			add_filter( 'wp_mail_from', function ( $from_email ) {
