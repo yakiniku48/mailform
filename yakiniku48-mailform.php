@@ -309,6 +309,11 @@ EOM;
 			}
 		}
 
+		public function has_errors()
+		{
+			return ! empty( $this->validation_errors );
+		}
+
 		public function validation_add_affix( $string )
 		{
 			return '<p class="y48mf-error">' . $string . '</p>';
