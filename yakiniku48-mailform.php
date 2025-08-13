@@ -173,6 +173,7 @@ EOM;
 				}
 			}
 
+			$cookie = [];
 			if ( $input_cookie = filter_input( INPUT_COOKIE, 'post_values' ) ) {
 				$cookie = json_decode( $input_cookie, true );
 			}
@@ -500,8 +501,10 @@ EOM;
 			if ( empty( $post_values ) && ! empty( $this->cookie[ $key ] ) ) {
 				$post_values = $this->cookie[ $key ];
 			}
-			if ( ! is_array( $post_values ) ) $post_values = (array) $post_values;
-			return $post_values;
+			if ( empty( $post_values ) ) {
+				return [];
+			}
+			return (array) $post_values;
 		}
 	}
 }
