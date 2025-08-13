@@ -173,12 +173,13 @@ EOM;
 				}
 			}
 
-			if ( $input_cookie = filter_input( INPUT_COOKIE, 'post_values' ) ) {
-				$cookie = json_decode( $input_cookie, true );
-			}
-			foreach ( $this->validation_rules as $key => $validation_rule ) {
-				$this->cookie[ $key ] = ( ! empty( $cookie[ $key ] ) ) ? $cookie[ $key ] : false;
-			}
+                        $cookie = [];
+                        if ( $input_cookie = filter_input( INPUT_COOKIE, 'post_values' ) ) {
+                                $cookie = json_decode( $input_cookie, true );
+                        }
+                        foreach ( $this->validation_rules as $key => $validation_rule ) {
+                                $this->cookie[ $key ] = ( ! empty( $cookie[ $key ] ) ) ? $cookie[ $key ] : false;
+                        }
 
 			if ( $validation_errors = filter_input( INPUT_COOKIE, 'validation_errors' ) ) {
 				$this->validation_errors = json_decode( $validation_errors, true );
@@ -491,14 +492,16 @@ EOM;
 		}
 
 		public function get_post_values( $key ) {
-			$post_values = $this->post[ $key ];
-			if ( empty( $post_values ) && ! empty( $this->cookie[ $key ] ) ) {
-				$post_values = $this->cookie[ $key ];
-			}
-			if ( ! is_array( $post_values ) ) $post_values = (array) $post_values;
-			return $post_values;
-		}
-	}
+                        $post_values = $this->post[ $key ];
+                        if ( empty( $post_values ) && ! empty( $this->cookie[ $key ] ) ) {
+                                $post_values = $this->cookie[ $key ];
+                        }
+                        if ( empty( $post_values ) ) {
+                                return [];
+                        }
+                        return (array) $post_values;
+                }
+        }
 }
 
 add_action( 'template_redirect', function () {
