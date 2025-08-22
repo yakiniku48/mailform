@@ -310,7 +310,12 @@ EOM;
 			}
 		}
 
-		public function has_errors()
+		/**
+		 * Check if any validation errors exist.
+		 *
+		 * @return bool True if there are validation errors.
+		 */
+		public function has_validation_errors()
 		{
 			return ! empty( $this->validation_errors );
 		}
